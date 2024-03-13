@@ -5,11 +5,9 @@ const AnalyzeButton = () => {
   const { t } = useTranslation();
 
   return (
-    <>
-      <button className='bg-slate-500 hover:bg-slate-400 py-2 px-4 rounded w-full'>
-        {t("analyze_button")}
-      </button>
-    </>
+    <button type='submit' className='bg-slate-500 hover:bg-slate-400 py-2 px-4 rounded w-full'>
+      {t("analyze_button")}
+    </button>
   );
 }
 
