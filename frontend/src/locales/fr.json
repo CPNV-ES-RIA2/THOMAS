@@ -9,5 +9,6 @@
     "analyze_results": "Résultats de l'analyse",
     "labels": "Labels",
     "no_labels": "Aucun label trouvé",
-    "confidence": "Confiance"
+    "confidence": "Confiance",
+    "no_file": "Aucun fichier sélectionné"
 }
