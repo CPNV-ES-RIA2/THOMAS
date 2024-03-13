@@ -7,11 +7,13 @@ import AnalyzeButton from './components/AnalyzeButton';
 import AnalyzeResults from './components/AnalyzeResults';
 import { useState } from 'react';
 import { createServer } from 'miragejs';
+import { useTranslation } from 'react-i18next';
+import i18n from './i18n';
 
 function App() {
   createServer({
     routes() {
-      this.get('/api/mock', () => {
+      this.post('/api/mock', () => {
         return {
           metrics: [
             {
@@ -60,11 +62,29 @@ function App() {
     }
   });
   const [results, setResults] = useState([]);
+  const [error, setError] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const { t } = useTranslation();
 
   function analyze(event) {
     event.preventDefault();
+    console.log(selectedImage);
+    if (!selectedImage) {
+      setError(true);
+      return;
+    }
+    const maxLabels = document.getElementById('max-labels-input').value;
+    const minConfidence = document.getElementById('min-confidence-input').value;
 
-    fetch('/api/mock')
+    const formData = new FormData();
+    formData.append('image', selectedImage);
+    formData.append('maxLabels', maxLabels);
+    formData.append('minConfidence', minConfidence);
+
+    fetch('/api/mock', {
+      method: 'POST',
+      body: formData
+    })
       .then(response => response.json())
       .then(data => {
         setResults(data);
@@ -81,7 +101,8 @@ function App() {
       </header>
       <main className='flex flex-col items-center mx-auto w-2/3 my-10'>
         <form id='formAnalyze' onSubmit={analyze} className='flex flex-col w-full gap-12'>
-          <Dropzone />
+          <Dropzone setImage={setSelectedImage} setError={setError} />
+          {error && <p className='text-red-500 -mt-6'>{t('no_file')}</p>}
           <Parameters />
           <AnalyzeButton />
           <div className='border w-full opacity-50'></div>

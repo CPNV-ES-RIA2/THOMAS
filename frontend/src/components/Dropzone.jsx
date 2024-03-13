@@ -6,6 +6,8 @@ import i18n from "../i18n";
 const dropzoneStyle = {
   justifyContent: "center",
   display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
   padding: "40px",
   borderWidth: "2px",
   borderRadius: "8px",
@@ -18,6 +20,8 @@ const dropzoneStyle = {
 const activeDropzoneStyle = {
   justifyContent: "center",
   display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
   padding: "40px",
   borderWidth: "2px",
   borderRadius: "8px",
@@ -25,10 +29,10 @@ const activeDropzoneStyle = {
   borderStyle: "dashed",
   color: "#aaaaaa",
   cursor: "pointer",
-  backgroundColor: "#e2e8f0",
+  backgroundColor: "#7d8795",
 };
 
-const DropzoneComponent = () => {
+const DropzoneComponent = ({ setImage, setError }) => {
   const [files, setFiles] = useState([]);
   const onDrop = useCallback((acceptedFiles) => {
     setFiles(
@@ -38,7 +42,10 @@ const DropzoneComponent = () => {
         })
       )
     );
-  }, []);
+
+    setImage(acceptedFiles[0]);
+    setError(false);
+  }, [setImage, setError]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -60,7 +67,7 @@ const DropzoneComponent = () => {
   return (
     <div style={isDragActive ? activeDropzoneStyle : dropzoneStyle}
       {...getRootProps()}>
-      <input data-testid="dragdrop" {...getInputProps()} />
+      <input id='image-input' data-testid="dragdrop" {...getInputProps()} />
       {
         isDragActive ?
           <p>{t('drop_file')}</p> :
