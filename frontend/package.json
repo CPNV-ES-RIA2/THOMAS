@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "i18next": "^23.10.0",
     "i18next-browser-languagedetector": "^7.2.0",
     "miragejs": "^0.1.48",
@@ -41,7 +38,6 @@
     ]
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^10.3.1",
     "cypress": "^13.6.6",
     "tailwindcss": "^3.4.1"
   }
