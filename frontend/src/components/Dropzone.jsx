@@ -32,7 +32,7 @@ const activeDropzoneStyle = {
   backgroundColor: "#7d8795",
 };
 
-const DropzoneComponent = ({ setImage, setError }) => {
+const DropzoneComponent = ({ setImage, setImageError }) => {
   const [files, setFiles] = useState([]);
   const onDrop = useCallback((acceptedFiles) => {
     setFiles(
@@ -44,8 +44,8 @@ const DropzoneComponent = ({ setImage, setError }) => {
     );
 
     setImage(acceptedFiles[0]);
-    setError(false);
-  }, [setImage, setError]);
+    setImageError(false);
+  }, [setImage, setImageError]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,

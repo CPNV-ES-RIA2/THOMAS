@@ -62,7 +62,8 @@ function App() {
     }
   });
   const [results, setResults] = useState([]);
-  const [error, setError] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [resultsError, setResultsError] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const { t } = useTranslation();
 
@@ -70,7 +71,7 @@ function App() {
     event.preventDefault();
     console.log(selectedImage);
     if (!selectedImage) {
-      setError(true);
+      setImageError(true);
       return;
     }
     const maxLabels = document.getElementById('max-labels-input').value;
@@ -88,6 +89,7 @@ function App() {
       .then(response => response.json())
       .then(data => {
         setResults(data);
+        setResultsError(false);
       })
       .catch(error => {
         console.error('Error:', error);
@@ -101,12 +103,13 @@ function App() {
       </header>
       <main className='flex flex-col items-center mx-auto w-2/3 my-10'>
         <form id='formAnalyze' onSubmit={analyze} className='flex flex-col w-full gap-12'>
-          <Dropzone setImage={setSelectedImage} setError={setError} />
-          {error && <p className='text-red-500 -mt-6'>{t('no_file')}</p>}
+          <Dropzone setImage={setSelectedImage} setImageError={setImageError} />
+          {imageError && <p className='text-red-500 -mt-6'>{t('no_file_error')}</p>}
           <Parameters />
           <AnalyzeButton />
           <div className='border w-full opacity-50'></div>
-          <AnalyzeResults results={results} />
+          <AnalyzeResults results={results} setResults={setResults} setResultsError={setResultsError} />
+          {resultsError && <p className='text-red-500 -mt-6'>{t('no_results_error')}</p>}
         </form>
       </main>
     </>
