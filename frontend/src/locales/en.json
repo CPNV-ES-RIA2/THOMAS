@@ -10,5 +10,8 @@
     "labels": "Labels",
     "no_labels": "No labels found",
     "confidence": "Confidence",
-    "no_file": "No file selected"
+    "no_file_error": "No file selected",
+    "clean_results": "Clean results",
+    "no_results_error": "No results to clean"
+
 }

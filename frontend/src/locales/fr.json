@@ -10,5 +10,7 @@
     "labels": "Labels",
     "no_labels": "Aucun label trouvé",
     "confidence": "Confiance",
-    "no_file": "Aucun fichier sélectionné"
+    "no_file_error": "Aucun fichier sélectionné",
+    "clean_results": "Effacer les résultats",
+    "no_results_error": "Aucun résultat à effacer"
 }
