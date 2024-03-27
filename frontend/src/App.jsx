@@ -11,56 +11,56 @@ import { useTranslation } from 'react-i18next';
 import i18n from './i18n';
 
 function App() {
-  createServer({
-    routes() {
-      this.post('/api/mock', () => {
-        return {
-          metrics: [
-            {
-              description: 'Test',
-              confidenceLevel: 100
-            },
-            {
-              description: 'Test 2',
-              confidenceLevel: 98
-            },
-            {
-              description: 'Test 3',
-              confidenceLevel: 19
-            },
-            {
-              description: 'Test 4',
-              confidenceLevel: 40
-            },
-            {
-              description: 'Test 5',
-              confidenceLevel: 52
-            },
-            {
-              description: 'Test 6',
-              confidenceLevel: 99
-            },
-            {
-              description: 'Test 7',
-              confidenceLevel: 11
-            },
-            {
-              description: 'Test 8',
-              confidenceLevel: 75
-            },
-            {
-              description: 'Test 9',
-              confidenceLevel: 58
-            },
-            {
-              description: 'Test 10',
-              confidenceLevel: 100
-            }
-          ]
-        };
-      });
-    }
-  });
+  // createServer({
+  //   routes() {
+  //     this.post('/api/mock', () => {
+  //       return {
+  //         metrics: [
+  //           {
+  //             description: 'Test',
+  //             confidenceLevel: 100
+  //           },
+  //           {
+  //             description: 'Test 2',
+  //             confidenceLevel: 98
+  //           },
+  //           {
+  //             description: 'Test 3',
+  //             confidenceLevel: 19
+  //           },
+  //           {
+  //             description: 'Test 4',
+  //             confidenceLevel: 40
+  //           },
+  //           {
+  //             description: 'Test 5',
+  //             confidenceLevel: 52
+  //           },
+  //           {
+  //             description: 'Test 6',
+  //             confidenceLevel: 99
+  //           },
+  //           {
+  //             description: 'Test 7',
+  //             confidenceLevel: 11
+  //           },
+  //           {
+  //             description: 'Test 8',
+  //             confidenceLevel: 75
+  //           },
+  //           {
+  //             description: 'Test 9',
+  //             confidenceLevel: 58
+  //           },
+  //           {
+  //             description: 'Test 10',
+  //             confidenceLevel: 100
+  //           }
+  //         ]
+  //       };
+  //     });
+  //   }
+  // });
   const [results, setResults] = useState([]);
   const [imageError, setImageError] = useState(false);
   const [resultsError, setResultsError] = useState(false);
@@ -77,23 +77,28 @@ function App() {
     const maxLabels = document.getElementById('max-labels-input').value;
     const minConfidence = document.getElementById('min-confidence-input').value;
 
-    const formData = new FormData();
-    formData.append('image', selectedImage);
-    formData.append('maxLabels', maxLabels);
-    formData.append('minConfidence', minConfidence);
+    const data = new FormData();
+    data.append('maxLabels', maxLabels);
+    data.append('minConfidence', minConfidence);
+    data.append('image', selectedImage);
 
-    fetch('/api/mock', {
+    fetch('http://127.0.0.1:5000/api/analyze', {
       method: 'POST',
-      body: formData
+      body: data
     })
-      .then(response => response.json())
-      .then(data => {
-        setResults(data);
-        setResultsError(false);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    .then(response => {
+      if (!response.ok) {
+        console.error(response);
+      }
+    })
+    .then(data => {
+      console.log(data);
+      //setResults(data);
+      setResultsError(false);
+    })
+    .catch(error => {
+      console.error(error);
+    });
   }
 
   return (
