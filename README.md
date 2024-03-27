@@ -13,6 +13,15 @@ This project is part from a bigger project [RIA2](https://github.com/ThomasGross
 - Go to `localhost:3000` in your prefered browser
 - Refer to the [Backend README](https://github.com/ThomasGrossmann/RIA2/blob/Sprint-%234/README.md) to know how to launch each Backend services to make the app work fully.
 
+### Run the app with Docker
+- Build the image (development stage)
+  - `cd frontend`
+  - `docker build -t ria-frontend --target=development .`
+- Run the image
+  - `docker run -p 3000:3000 ria-frontend`
+- Go to `localhost:3000` in your prefered browser to see the Frontend running from Docker.
+- Refer to the [Backend README](https://github.com/ThomasGrossmann/RIA2/blob/Sprint-%234/README.md) to know how to launch each Backend services to make the app work fully.
+
 ## How to run the tests
 - `npx cypress open`
 - Click on E2E Testing
