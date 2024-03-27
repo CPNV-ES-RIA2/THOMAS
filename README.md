@@ -29,4 +29,9 @@ This project is part from a bigger project [RIA2](https://github.com/ThomasGross
 - Click on the test file you want to run
 - The tests will now run
 
+If for some reason you have an error when doing `npx cypress open` (like "No version of Cypress is installed in: [...]")
+- Run `npx cypress install` and retry `npx cypress open`
+
+```
 Note : During development, Electron was used to run the tests.
+```
